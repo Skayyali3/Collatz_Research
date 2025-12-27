@@ -67,3 +67,4 @@ elif len(str(n)) > 1000:
     print(f"STOPPED: Divergence detected at {len(str(n))} digits.")
 else:
     print(f"LIMIT REACHED: Stopped after {steps} steps without reaching 1.")
+input("Press Enter to exit...")
