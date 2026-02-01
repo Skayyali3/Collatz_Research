@@ -1,1 +1,1 @@
-#No requirements because all libraries used are pre-installed within python
+# No requirements because all used libraries used are part of the Python Standard Library
