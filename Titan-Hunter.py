@@ -2,10 +2,9 @@ import random
 import time
 import sys
 
-# Remove limit for internal math
 sys.set_int_max_str_digits(0) 
 
-def warp_titan_hunter():
+def Titan_Hunter():
     print("Welcome to the Titan Hunter!")
     try:
         q = int(input("Enter value 'q' for qn+r conjecture: "))
@@ -13,8 +12,7 @@ def warp_titan_hunter():
         limit = int(input("Step Limit (be careful and try to not make it more than your RAM can handle): "))
         
         choice = input("Do you want to start with a positive or a negative 1000-digit number (p/n): ").lower()
-        
-        # Initializing the Titan
+
         n = random.randint(10**999, 10**1000)
         if choice == 'n':
             n = -n
@@ -36,17 +34,15 @@ def warp_titan_hunter():
         if curr_n.bit_length()>max_bits:
             max_bits=curr_n.bit_length()
 
-        # RAM Safety Brake (Check magnitude every step)
         if curr_n.bit_length() > 500000:
             print(f"\nEMERGENCY STOP at step {i}: Magnitude reached 500,000 bits.")
             print("Stopping to protect your RAM")
             print(f"Peak amount of bits was: {max_bits}")
             break
-
         
         if -20000 < curr_n < 20000:
             if curr_n in seen:
-                meeting_point=curr_n
+                meeting_point = curr_n
                 print(f"\nLOOP FOUND at step {i}!")
                 loop_members=[]
                 while True:
@@ -55,7 +51,7 @@ def warp_titan_hunter():
                         curr_n //= 2
                     else:
                         curr_n = q * curr_n + r
-                    if curr_n == meeting_point: # We've come full circle
+                    if curr_n == meeting_point:
                      break
                 if any(abs(m) > 1000000 for m in loop_members):
                     filename = f"loop_q{q}_r{r}_step{i}.txt"
@@ -72,11 +68,10 @@ def warp_titan_hunter():
             seen[curr_n] = i
         
         if curr_n % 2 == 0:
-            curr_n//=2
+            curr_n //= 2
         else:
             curr_n = q * curr_n + r
             
-        
         if i % 50000 == 0:
             print(f"Step {i//1000}k: {curr_n.bit_length()} bits | {time.time()-start_time:.2f}s")
 
@@ -86,5 +81,6 @@ def warp_titan_hunter():
 
     print(f"Total Time: {time.time() - start_time:.4f} seconds")
     input("Press Enter to exit..")
+    
 if __name__ == "__main__":
-    warp_titan_hunter()
+    Titan_Hunter()

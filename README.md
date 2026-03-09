@@ -1,7 +1,7 @@
 # The $qn+r$ Research Lab
 
 ## Mathematical Analysis and High-Precision Deep Searching
-This repository serves as the Engine Room for the **[Collatz Multiverse](https://github.com/Skayyali3/Collatz_Multiverse)** and **[Collatz Standard](https://github.com/Skayyali3/CollatzStandard)** projects. While the main applications focus on visualization, this lab is dedicated to stress-testing conjectures, identifying loops, and mapping the limits of numerical stability.
+This repository serves as the Engine Room for the **[Collatz Multiverse](https://github.com/Skayyali3/Collatz_Multiverse)** and **[Collatz Standard](https://github.com/Skayyali3/CollatzStandard)** projects. While the main applications focus on visualization, this lab is dedicated to stress-testing conjectures, identifying loops, and mapping the limits of numerical consistency.
 
 ---
 
@@ -15,6 +15,7 @@ A high-performance terminal tool designed for massive integers that:
 * Uses Safety Guards for automatic divergence detection to prevent exponential memory consumption.
 
 ### 2: *[MIllion Test Python Engine](Million-Test.py):*
+
 A fast terminal tool that tests all digits from 1 to a million (both positive and negative work, based on user-input) on user-entered conjectures 
 
 * Utilizes Python's `multiprocessing` library to perform internal math quickly when numbers are huge

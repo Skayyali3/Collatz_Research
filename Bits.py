@@ -6,10 +6,9 @@ except ValueError:
     print("Invalid input")
     input("Press Enter to exit")
     sys.exit(1)
-# Get the bit length
+
 bit_length = number.bit_length()
 
-# Print the result
 print(f"The number of decimal digits is: {len(str(number))}")
 print(f"The bit length is: {bit_length}")
 input("Press Enter to exit")

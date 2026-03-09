@@ -1,5 +1,7 @@
 import sys
+
 sys.set_int_max_str_digits(1000000)
+
 def parse_collatz(val):
     val = val.replace(" ", "").lower()
     try:
@@ -35,16 +37,13 @@ def parse_collatz(val):
     except:
         return None
 
-
-
-
 try:
     print("Welcome to the Deep Search for the qn+r Conjecture!\nEnter the parameters for the conjecture and a starting integer.")
     print("You can test large numbers using scientific notation or exponentiation (e.g., 2.7e64, 2^64, 2.7*10^64, 2.7*10**64).")
     print("Note: you can only input integers as values for q and r.\n")
     print("WARNING: Don't input large numbers for q and r as they should be small integers, typically q=3 and r=1 for the classic Collatz conjecture.")
     print("WARNING: Don't input numbers larger than your RAM can handle as this program uses arbitrary-precision integers which can consume a lot of memory.")
-    print("WARNING: Be aware that even testing extremely high numbers in small conjectures may cause issues within your RAM.")
+    print("WARNING: Be aware that even testing extremely high numbers in small conjectures may cause memory issues.")
     print("\nNote: Large numbers may take significant time to process.\n")
 
     q=int(input("Enter the 'q' value for the qn+r conjecture : "))
@@ -56,14 +55,11 @@ except ValueError:
     input("Press Enter to exit...")
     sys.exit(1)
 
-
-
 n = parse_collatz(str(start_n))
 if n is None:
     print("Invalid starting value.")
     input("Press Enter to exit...")
     sys.exit(1)
-
 
 steps = 0
 limit = input("Enter the maximum number of steps to search (e.g., 1000000): ")
@@ -96,12 +92,11 @@ while (n != 1 or continue_after_one) and steps < limit:
         curr = n
         while True:
            loop_members.append(curr)
-           # Apply the rule one more time to find the next member
            if curr % 2 == 0:
                 curr //= 2
            else:
                 curr = q * curr + r
-           if curr == n: # We've come full circle
+           if curr == n:
                 break
         pos_number=[num for num in loop_members if num>0]
         if pos_number:
@@ -116,8 +111,6 @@ while (n != 1 or continue_after_one) and steps < limit:
         break
     seen.add(n)
     
-    
-    # Print progress every 10,000 steps to keep the console clean
     if steps % 10000 == 0:
         print(f"Step {steps}: Current value is {n} and has {len(str(n))} digits.")
 

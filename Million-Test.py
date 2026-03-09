@@ -14,7 +14,6 @@ def get_fate(n, q, r, limit):
         if n in seen:
             loop_start = seen[n]
             actual_loop = path[loop_start:]
-            # Filter for positive members to find best name for loop
             pos_m = [m for m in actual_loop if m > 0]
             if pos_m:
                 min_bits = min(m.bit_length() for m in pos_m)
@@ -24,8 +23,7 @@ def get_fate(n, q, r, limit):
         
         seen[n] = len(path)
         path.append(n)
-        
-        # The core qn+r logic
+
         n = n // 2 if n % 2 == 0 else q * n + r
         steps += 1
         
@@ -50,7 +48,6 @@ if __name__ == "__main__":
         input("Press Enter to exit..")
         sys.exit(1)
 
-    # Configure the Negative and Positive realms
     if direction == 'n':
         START, END, STEP = -1, -1000000, -1
         label = "Negative"
@@ -88,8 +85,7 @@ if __name__ == "__main__":
         writer = csv.writer(f)
         writer.writerow(["Number", "Fate", "Steps"])
         writer.writerows(flat_results)
-        
-    # Research Summary
+
     fates = [r[1] for r in flat_results]
     print(f"\n{'='*40}")
     print(f"RESEARCH LOG: {label.upper()} MILLION COMPLETE")
@@ -97,8 +93,7 @@ if __name__ == "__main__":
     print(f"Total Time: {elapsed_time:.2f} seconds")
     print(f"Average Speed: {1000000/elapsed_time:.0f} numbers/sec")
     print("-" * 40)
-    
-    # Sort and display unique attractors found
+
     for fate in sorted(set(fates)):
         count = fates.count(fate)
         percentage = (count / 1000000) * 100
