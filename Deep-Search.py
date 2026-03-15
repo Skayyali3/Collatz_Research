@@ -3,7 +3,7 @@ import sys
 sys.set_int_max_str_digits(1000000)
 
 def parse_collatz(val):
-    val = val.replace(" ", "").lower()
+    val = val.replace(" ", "").replace(",", "").lower()
     try:
         if "*10^" in val:
             base, exp = val.split("*10^")
@@ -49,27 +49,25 @@ try:
     print("WARNING: Be aware that even testing extremely high numbers in small conjectures may cause memory issues.")
     print("\nNote: Large numbers may take significant time to process.\n")
 
-    q=int(input("Enter the 'q' value for the qn+r conjecture: "))
-    r=int(input("Enter the 'r' value for the qn+r conjecture: "))
-    n = input(f"Enter an integer to test the {q}n+{r} conjecture: ")
+    q=parse_collatz(input("Enter the 'q' value for the qn+r conjecture: "))
+    r=parse_collatz(input("Enter the 'r' value for the qn+r conjecture: "))
+    n = parse_collatz(input(f"Enter an integer to test the {q}n+{r} conjecture: "))
     bit=int(input("Enter the maximum number of bits allowed for each number: \n(If you don't know how many bits the max number of digits you want to allow is,\n use the Bits.py tool then come back and enter)\n"))
 except ValueError:
     print("Error: Please enter valid integers only.")
     input("Press Enter to exit...")
     sys.exit(1)
 
-n = parse_collatz(str(n))
 if n is None:
     print("Invalid starting value.")
     input("Press Enter to exit...")
     sys.exit(1)
 
 steps = 0
-limit = input("Enter the maximum number of steps to search (e.g., 1000000): ")
+limit = parse_collatz(input("Enter the maximum number of steps to search (e.g., 10000 or 10^20): "))
 cont_after_1 = input("Continue simulation after reaching 1? (y/n): ").strip().lower()
 continue_after_one = cont_after_1 == "y"
 
-limit = parse_collatz(str(limit))
 tortoise = n
 hare = n
 

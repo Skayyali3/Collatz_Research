@@ -44,7 +44,7 @@ def calc(num, q, r):
     return num
 
 def parse_collatz(val):
-    val = val.replace(" ", "").lower()
+    val = val.replace(" ", "").replace(",", "").lower()
     try:
         if "*10^" in val:
             base, exp = val.split("*10^")
@@ -81,8 +81,8 @@ def parse_collatz(val):
 if __name__ == "__main__":
     try:
         print("Welcome to the qn+r Conjecture Million Tester")
-        q = int(input("Enter 'q' (Standard would be 3): "))
-        r = int(input("Enter 'r' (Standard would be 1): "))
+        q = parse_collatz(input("Enter 'q' (Standard would be 3): "))
+        r = parse_collatz(input("Enter 'r' (Standard would be 1): "))
         limit = parse_collatz(input("Enter Step Limit (e.g., 1000): "))
         direction = input("Run Positive (p) or Negative (n) million? ").lower()
     except ValueError:

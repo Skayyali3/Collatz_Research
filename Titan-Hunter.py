@@ -4,7 +4,7 @@ import sys
 
 sys.set_int_max_str_digits(0) 
 def parse_collatz(val):
-    val = val.replace(" ", "").lower()
+    val = val.replace(" ", "").replace(",", "").lower()
     try:
         if "*10^" in val:
             base, exp = val.split("*10^")
@@ -41,9 +41,9 @@ def parse_collatz(val):
 def Titan_Hunter():
     print("Welcome to the Titan Hunter!")
     try:
-        q = int(input("Enter value 'q' for qn+r conjecture: "))
-        r = int(input(f"Enter value 'r' for qn+r conjecture: "))
-        limit = input("Step Limit (be careful and try to not make it more than your RAM can handle): ")
+        q = parse_collatz(input("Enter value 'q' for qn+r conjecture: "))
+        r = parse_collatz(input(f"Enter value 'r' for qn+r conjecture: "))
+        limit = parse_collatz(input("Step Limit (be careful and try to not make it more than your RAM can handle): "))
         
         choice = input("Do you want to start with a positive or a negative 1000-digit number (p/n): ").lower()
 
@@ -61,7 +61,6 @@ def Titan_Hunter():
     tortoise = n
     hare = n
     max_bits = n.bit_length()
-    limit = parse_collatz(str(limit))
 
     print(f"\n Launching Titan ({tortoise.bit_length()} bits)...")
 
