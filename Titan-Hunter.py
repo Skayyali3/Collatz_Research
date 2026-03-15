@@ -57,7 +57,7 @@ def Titan_Hunter():
         input("Press Enter to exit")
         sys.exit(1)
 
-    start_time = time.time()
+    start = time.time()
     tortoise = n
     hare = n
     max_bits = n.bit_length()
@@ -81,32 +81,32 @@ def Titan_Hunter():
         if tortoise == hare:
             meeting_point = tortoise
             print(f"\nLOOP FOUND at step {i}!")
-            loop_members=[]
+            loopmems=[]
             while True:
-                loop_members.append(tortoise)
+                loopmems.append(tortoise)
                 tortoise = calc(tortoise, q, r)
                 if tortoise == meeting_point:
                     break
-            if any(abs(m) > 100000 for m in loop_members):
+            if any(abs(m) > 100000 for m in loopmems):
                 filename = f"loop_{q}n+{r}_step{i}.txt"
                 with open(filename, "w") as f:
                     f.write(f"Conjecture: {q}n+{r}\n")
                     f.write(f"Peak amount of bits was: {max_bits}")
-                    f.write(f"Loop Length: {len(loop_members)}\n")
-                    f.write(f"Members: {loop_members}\n")
+                    f.write(f"Loop Length: {len(loopmems)}\n")
+                    f.write(f"Members: {loopmems}\n")
                 print(f"[*] Large numbers detected. Loop saved to {filename} to keep console clean.")
             else:
-                print(f"Loop Members: {loop_members} which is a {len(loop_members)} step loop.\n Largest amount of bits was {max_bits}")
+                print(f"Loop Members: {loopmems} which is a {len(loopmems)} step loop.\n Largest amount of bits was {max_bits}")
             break
             
         if i % 50000 == 0:
-            print(f"Step {i//1000}k: {tortoise.bit_length()} bits | {time.time()-start_time:.2f}s")
+            print(f"Step {i//1000}k: {tortoise.bit_length()} bits | {time.time()-start:.2f}s")
 
     else:
         print(f"\nFinished at {limit} steps.")
         print(f"Final Magnitude: {tortoise.bit_length()} bits")
 
-    print(f"Total Time: {time.time() - start_time:.4f} seconds")
+    print(f"Total Time: {time.time() - start:.4f} seconds")
     input("Press Enter to exit..")
 
 def calc(num, q, r):

@@ -96,22 +96,22 @@ while (tortoise != 1 or continue_after_one) and steps < limit:
         break
     if tortoise == hare:
         print(f"\nLOOP DETECTED at step {steps}!")
-        loop_members = []
+        loopmems = []
         curr = tortoise
         while True:
-           loop_members.append(curr)
+           loopmems.append(curr)
            curr = calc(curr, q, r)
            if curr == tortoise:
                 break
-        pos_number=[num for num in loop_members if num > 0]
+        pos_number=[num for num in loopmems if num > 0]
         if pos_number:
             min_digits = min(num.bit_length() for num in pos_number)
             candidates = [num for num in pos_number if num.bit_length() == min_digits]
             loop_name=min(candidates)
         else:
-            loop_name=min(loop_members)
-        print(f"Full loop cycle: {loop_members}" if len(loop_members) < 100 else "Loop cycle too long to display.")
-        print(f"Cycle length: {len(loop_members)}")
+            loop_name=min(loopmems)
+        print(f"Full loop cycle: {loopmems}" if len(loopmems) < 100 else "Loop cycle too long to display.")
+        print(f"Cycle length: {len(loopmems)}")
         print(f"This is the {loop_name} loop of the {q}n + {r} conjecture.")
         break
     

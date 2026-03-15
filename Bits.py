@@ -7,9 +7,9 @@ except ValueError:
     input("Press Enter to exit")
     sys.exit(1)
 
-bit_length = number.bit_length()
+bitlength = number.bit_length()
 
 print(f"The number of decimal digits is: {len(str(number))}")
-print(f"The bit length is: {bit_length}")
+print(f"The bit length is: {bitlength}")
 input("Press Enter to exit")
 sys.exit(1)
