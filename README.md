@@ -14,7 +14,7 @@ Inspired by:
 A high-performance terminal tool designed for massive integers that:
 
 * Utilizes Python's arbitrary-precision integers with a 1,000,000 digit string limit.
-* Utilizes Cycle Detection by implementing a hashed `seen` set for loop detection.
+* Utilizes Cycle Detection by implementing floyd's algorithm for loop detection.
 * Uses Safety Guards for automatic divergence detection to prevent exponential memory consumption.
 
 ### 2: *[MIllion Test Python Engine](Million-Test.py):*
