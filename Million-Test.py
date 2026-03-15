@@ -24,7 +24,7 @@ def get_fate(n, q, r, limit):
         seen[n] = len(path)
         path.append(n)
 
-        n = n // 2 if n % 2 == 0 else q * n + r
+        n = calc(n, q, r)
         steps += 1
         
     return (orig_n, "Exceeded", steps)
@@ -35,8 +35,11 @@ def run_range_dynamic(start, end, step, q, r, limit):
         results.append(get_fate(i, q, r, limit))
     return results
 
+def calc(num, q, r):
+    num = num >> 1 if (num & 1) == 0 else num = num * q + r
+    return num
+
 if __name__ == "__main__":
-    
     try:
         print("Welcome to the qn+r Conjecture Million Tester")
         q_val = int(input("Enter 'q' (Standard would be 3): "))
@@ -60,7 +63,6 @@ if __name__ == "__main__":
 
     print(f"\n[*] Initializing {label} Mega-Run...")
     print(f"[*] Conjecture: {q_val}n + {r_val} | Limit: {step_limit} steps")
-
     
     tasks = []
     if STEP == 1:
@@ -80,7 +82,7 @@ if __name__ == "__main__":
     flat_results = [item for sublist in all_results for item in sublist]
     elapsed_time = time.time() - start_time
     
-    filename = f"{label}_Results_{q_val}n_{r_val}.csv"
+    filename = f"{label}_Results_{q_val}n+{r_val}.csv"
     with open(filename, 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(["Number", "Fate", "Steps"])
