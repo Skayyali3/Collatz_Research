@@ -14,12 +14,14 @@ Inspired by:
 A high-performance terminal tool designed for massive integers that:
 
 * Utilizes Python's arbitrary-precision integers with a 1,000,000 digit string limit.
-* Utilizes Cycle Detection by implementing floyd's algorithm for loop detection.
+
+* Implemented Cycle Detection via using floyd's algorithm for loop detection.
+
 * Uses Safety Guards for automatic divergence detection to prevent exponential memory consumption.
 
-### 2: *[MIllion Test Python Engine](Million-Test.py):*
+### 2: *[Range Computation Python Engine](Range-Computation.py):*
 
-A fast terminal tool that tests all digits from 1 to a million (both positive and negative work, based on user-input) on user-entered conjectures 
+A fast terminal tool that allows users to enter custom number ranges to test user-entered conjectures, it does the following:
 
 * Utilizes Python's `multiprocessing` library to perform internal math quickly when numbers are huge
 
@@ -42,9 +44,9 @@ A side terminal tool that converts numbers to bits for user input in the main en
 ## Research Documentation:
 ### Core Findings are in the [Research File](RESEARCH.md)
 ### Key Discoveries:
-* The Precision Cliff: Why standard floating-point math fails for numbers like ($10^{67}$)
 * $3n-1$ Mirroring: Proof of the symmetry between $3n-1$ (positive) and $3n+1$ (negative)
 * Shared Trajectories: The discovery of mathematical highways in the $4n+8$ system where all paths of negative numbers eventually merge at the commencement 1.
+* 
  
 ## How to Run:
 Follow these steps to run the project locally:

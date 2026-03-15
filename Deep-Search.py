@@ -123,10 +123,10 @@ if tortoise == 1 and not continue_after_one:
 elif steps >= limit:
     print(f"LIMIT REACHED: Stopped after {steps} steps..")
     print(f"Last value: {tortoise} ({len(str(tortoise))} digits)")
-
 elif tortoise.bit_length() > bit:
     print(f"STOPPED: Divergence detected at {len(str(tortoise))} digits.")
 else:
     print(f"LIMIT REACHED: Stopped after {steps} steps.")
+
 input("Press Enter to exit...")
 sys.exit(0)
