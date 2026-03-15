@@ -3,6 +3,9 @@
 ## Mathematical Analysis and High-Precision Deep Searching
 This repository serves as the Engine Room for the **[Collatz Multiverse](https://github.com/Skayyali3/Collatz_Multiverse)** and **[Collatz Standard](https://github.com/Skayyali3/CollatzStandard)** projects. While the main applications focus on visualization, this lab is dedicated to stress-testing conjectures, identifying loops, and mapping the limits of numerical consistency.
 
+Inspired by:
+*[The Collatz Multiverse](https://www.youtube.com/watch?v=n63FBYqj98E&t=123)* by [carykh on YouTube](https://www.youtube.com/@carykh)
+
 ---
 
 ## Included Tools: 
