@@ -3,36 +3,33 @@ import time
 import sys
 
 sys.set_int_max_str_digits(0) 
+
 def parse_collatz(val):
     val = val.replace(" ", "").replace(",", "").lower()
     try:
-        if "*10^" in val:
-            base, exp = val.split("*10^")
+        if "*10^" in val or "*10**" in val:
+            base, exp = val.split("*10^") if "*10^" in val else val.split("*10**")
+            exponent = int(exp)
+            if exponent < 0: return None
             if "." in base:
                 digits, dec_places = base.replace(".", ""), len(base.split(".")[1])
-                return int(digits) * (10 ** (int(exp) - dec_places))
+                return int(digits) * (10 ** (exponent - dec_places))
             else:
                 return int(base) * (10 ** int(exp))
-        elif "*10**" in val:
-            base, exp = val.split("*10**")
-            if "." in base:
-                digits, dec_places = base.replace(".", ""), len(base.split(".")[1])
-                return int(digits) * (10 ** (int(exp) - dec_places))
-            else:
-                return int(base) * (10 ** int(exp))
-        elif "^" in val:
-            base, exp = val.split("^")
-            return int(base) ** int(exp)
-        elif "**" in val:
-            base, exp = val.split("**")
-            return int(base) ** int(exp)
+        elif "^" in val or "**" in val:
+            base, exp = val.split("^") if "^" in val else val.split("**")
+            exponent = int(exp)
+            if exponent < 0: return None
+            return int(base) ** exponent
         elif "e" in val:
             base, exp = val.split("e")
+            exponent = int(exp)
+            if exponent < 0: return None
             if "." in base:
                 digits, dec_places = base.replace(".", ""), len(base.split(".")[1])
-                return int(digits) * (10 ** (int(exp) - dec_places))
+                return int(digits) * (10 ** (exponent - dec_places))
             else:
-                return int(base) * (10 ** int(exp))
+                return int(base) * (10 ** exponent)
         else:
             return int(val)
     except:
@@ -54,7 +51,7 @@ def Titan_Hunter():
         print(f"Beginning {q}n+{r} testing on a {'positive' if n > 0 else 'negative'} 1000-digit number")
     except ValueError:
         print("Invalid input.")
-        input("Press Enter to exit")
+        input("Press Enter to exit...")
         sys.exit(1)
 
     start = time.time()
@@ -106,7 +103,8 @@ def Titan_Hunter():
         print(f"Final Magnitude: {tortoise.bit_length()} bits")
 
     print(f"Total Time: {time.time() - start:.4f} seconds")
-    input("Press Enter to exit..")
+    input("Press Enter to exit...")
+    sys.exit(0)
 
 def calc(num, q, r):
     num = num >> 1 if (num & 1) == 0 else num * q + r

@@ -1,37 +1,33 @@
 import sys
 
-sys.set_int_max_str_digits(1000000)
+sys.set_int_max_str_digits(0)
 
 def parse_collatz(val):
     val = val.replace(" ", "").replace(",", "").lower()
     try:
-        if "*10^" in val:
-            base, exp = val.split("*10^")
+        if "*10^" in val or "*10**" in val:
+            base, exp = val.split("*10^") if "*10^" in val else val.split("*10**")
+            exponent = int(exp)
+            if exponent < 0: return None
             if "." in base:
                 digits, dec_places = base.replace(".", ""), len(base.split(".")[1])
-                return int(digits) * (10 ** (int(exp) - dec_places))
+                return int(digits) * (10 ** (exponent - dec_places))
             else:
                 return int(base) * (10 ** int(exp))
-        elif "*10**" in val:
-            base, exp = val.split("*10**")
-            if "." in base:
-                digits, dec_places = base.replace(".", ""), len(base.split(".")[1])
-                return int(digits) * (10 ** (int(exp) - dec_places))
-            else:
-                return int(base) * (10 ** int(exp))
-        elif "^" in val:
-            base, exp = val.split("^")
-            return int(base) ** int(exp)
-        elif "**" in val:
-            base, exp = val.split("**")
-            return int(base) ** int(exp)
+        elif "^" in val or "**" in val:
+            base, exp = val.split("^") if "^" in val else val.split("**")
+            exponent = int(exp)
+            if exponent < 0: return None
+            return int(base) ** exponent
         elif "e" in val:
             base, exp = val.split("e")
+            exponent = int(exp)
+            if exponent < 0: return None
             if "." in base:
                 digits, dec_places = base.replace(".", ""), len(base.split(".")[1])
-                return int(digits) * (10 ** (int(exp) - dec_places))
+                return int(digits) * (10 ** (exponent - dec_places))
             else:
-                return int(base) * (10 ** int(exp))
+                return int(base) * (10 ** exponent)
         else:
             return int(val)
     except:
@@ -58,13 +54,18 @@ except ValueError:
     input("Press Enter to exit...")
     sys.exit(1)
 
+if q is None or r is None:
+    print("Error: q and r must be integers.")
+    input("Press Enter to exit...")
+    sys.exit(1)
+
 if n is None:
     print("Invalid starting value.")
     input("Press Enter to exit...")
     sys.exit(1)
 
 steps = 0
-limit = parse_collatz(input("Enter the maximum number of steps to search (e.g., 10000 or 10^20): "))
+limit = parse_collatz(input("Enter the maximum number of steps to search (e.g., 10000 or 10^20): ") or "10^20")
 cont_after_1 = input("Continue simulation after reaching 1? (y/n): ").strip().lower()
 continue_after_one = cont_after_1 == "y"
 

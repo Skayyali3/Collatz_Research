@@ -11,5 +11,5 @@ bitlength = number.bit_length()
 
 print(f"The number of decimal digits is: {len(str(number))}")
 print(f"The bit length is: {bitlength}")
-input("Press Enter to exit")
-sys.exit(1)
+input("Press Enter to exit...")
+sys.exit(0)
