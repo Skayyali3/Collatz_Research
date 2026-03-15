@@ -3,13 +3,47 @@ import time
 import sys
 
 sys.set_int_max_str_digits(0) 
+def parse_collatz(val):
+    val = val.replace(" ", "").lower()
+    try:
+        if "*10^" in val:
+            base, exp = val.split("*10^")
+            if "." in base:
+                digits, dec_places = base.replace(".", ""), len(base.split(".")[1])
+                return int(digits) * (10 ** (int(exp) - dec_places))
+            else:
+                return int(base) * (10 ** int(exp))
+        elif "*10**" in val:
+            base, exp = val.split("*10**")
+            if "." in base:
+                digits, dec_places = base.replace(".", ""), len(base.split(".")[1])
+                return int(digits) * (10 ** (int(exp) - dec_places))
+            else:
+                return int(base) * (10 ** int(exp))
+        elif "^" in val:
+            base, exp = val.split("^")
+            return int(base) ** int(exp)
+        elif "**" in val:
+            base, exp = val.split("**")
+            return int(base) ** int(exp)
+        elif "e" in val:
+            base, exp = val.split("e")
+            if "." in base:
+                digits, dec_places = base.replace(".", ""), len(base.split(".")[1])
+                return int(digits) * (10 ** (int(exp) - dec_places))
+            else:
+                return int(base) * (10 ** int(exp))
+        else:
+            return int(val)
+    except:
+        return None
 
 def Titan_Hunter():
     print("Welcome to the Titan Hunter!")
     try:
         q = int(input("Enter value 'q' for qn+r conjecture: "))
         r = int(input(f"Enter value 'r' for qn+r conjecture: "))
-        limit = int(input("Step Limit (be careful and try to not make it more than your RAM can handle): "))
+        limit = input("Step Limit (be careful and try to not make it more than your RAM can handle): ")
         
         choice = input("Do you want to start with a positive or a negative 1000-digit number (p/n): ").lower()
 
@@ -27,6 +61,7 @@ def Titan_Hunter():
     tortoise = n
     hare = n
     max_bits = n.bit_length()
+    limit = parse_collatz(str(limit))
 
     print(f"\n Launching Titan ({tortoise.bit_length()} bits)...")
 

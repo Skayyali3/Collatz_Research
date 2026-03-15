@@ -43,12 +43,47 @@ def calc(num, q, r):
     num = num >> 1 if (num & 1) == 0 else num * q + r
     return num
 
+def parse_collatz(val):
+    val = val.replace(" ", "").lower()
+    try:
+        if "*10^" in val:
+            base, exp = val.split("*10^")
+            if "." in base:
+                digits, dec_places = base.replace(".", ""), len(base.split(".")[1])
+                return int(digits) * (10 ** (int(exp) - dec_places))
+            else:
+                return int(base) * (10 ** int(exp))
+        elif "*10**" in val:
+            base, exp = val.split("*10**")
+            if "." in base:
+                digits, dec_places = base.replace(".", ""), len(base.split(".")[1])
+                return int(digits) * (10 ** (int(exp) - dec_places))
+            else:
+                return int(base) * (10 ** int(exp))
+        elif "^" in val:
+            base, exp = val.split("^")
+            return int(base) ** int(exp)
+        elif "**" in val:
+            base, exp = val.split("**")
+            return int(base) ** int(exp)
+        elif "e" in val:
+            base, exp = val.split("e")
+            if "." in base:
+                digits, dec_places = base.replace(".", ""), len(base.split(".")[1])
+                return int(digits) * (10 ** (int(exp) - dec_places))
+            else:
+                return int(base) * (10 ** int(exp))
+        else:
+            return int(val)
+    except:
+        return None
+
 if __name__ == "__main__":
     try:
         print("Welcome to the qn+r Conjecture Million Tester")
         q_val = int(input("Enter 'q' (Standard would be 3): "))
         r_val = int(input("Enter 'r' (Standard would be 1): "))
-        step_limit = int(input("Enter Step Limit (e.g., 1000): "))
+        step_limit = input("Enter Step Limit (e.g., 1000): ")
         direction = input("Run Positive (p) or Negative (n) million? ").lower()
     except ValueError:
         print("\nError: Please enter valid integers for q, r, and limit.")
@@ -64,6 +99,7 @@ if __name__ == "__main__":
 
     CHUNK_SIZE = 10000
     start_time = time.time()
+    step_limit = parse_collatz(str(step_limit))
 
     print(f"\n[*] Initializing {label} Mega-Run...")
     print(f"[*] Conjecture: {q_val}n + {r_val} | Limit: {step_limit} steps")
