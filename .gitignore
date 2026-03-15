@@ -19,3 +19,9 @@ desktop.ini
 dist/
 build/
 *.spec
+
+# User data
+*.csv
+*.txt
+
+!requirements.txt

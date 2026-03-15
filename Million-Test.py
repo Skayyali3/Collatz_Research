@@ -4,30 +4,34 @@ import sys
 import time
 
 def get_fate(n, q, r, limit):
-    path = []
-    seen = {}
     steps = 0
-    
-    orig_n = n
+    tortoise = n
+    hare = n
+
+    isstandardcollatz = (q == 3 and r == 1)
     while steps < limit:
-        if n == 0: return (orig_n, "Zero Loop", steps)
-        if n in seen:
-            loop_start = seen[n]
-            actual_loop = path[loop_start:]
-            pos_m = [m for m in actual_loop if m > 0]
+        tortoise = calc(tortoise, q, r)
+        steps += 1
+        hare = calc(calc(hare, q, r), q, r)
+        if tortoise == 0: return (n, "Zero Loop", steps)
+        if isstandardcollatz and tortoise == 1: return(n, "Standard Collatz one attraction", steps)
+        if tortoise == hare:
+            loop_members = []
+            curr = tortoise
+            while True:
+                loop_members.append(curr)
+                curr = calc(curr, q, r)
+                if curr == tortoise: break
+
+            pos_m = [m for m in loop_members if m > 0]
             if pos_m:
                 min_bits = min(m.bit_length() for m in pos_m)
                 loop_val = min([m for m in pos_m if m.bit_length() == min_bits])
-                return (orig_n, f"Loop {loop_val}", steps)
-            return (orig_n, f"Loop {min(actual_loop)}", steps)
+                return (n, f"Loop {loop_val}", steps)
+            else:
+                return (n, f"Loop {max(loop_members)}", steps)
         
-        seen[n] = len(path)
-        path.append(n)
-
-        n = calc(n, q, r)
-        steps += 1
-        
-    return (orig_n, "Exceeded", steps)
+    return (n, "Exceeded", steps)
 
 def run_range_dynamic(start, end, step, q, r, limit):
     results = []
@@ -36,7 +40,7 @@ def run_range_dynamic(start, end, step, q, r, limit):
     return results
 
 def calc(num, q, r):
-    num = num >> 1 if (num & 1) == 0 else num = num * q + r
+    num = num >> 1 if (num & 1) == 0 else num * q + r
     return num
 
 if __name__ == "__main__":
